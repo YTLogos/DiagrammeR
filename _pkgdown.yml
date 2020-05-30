@@ -1,8 +1,13 @@
+destination: docs
+
+home:
+  strip_header: true
+
 reference:
   - title: External NDF/EDF
     desc: >
-      These functions create external node data frames (ndfs) and
-      external edge data frames (edfs). These specialized tables
+      These functions create external node data frames (NDFs) and
+      external edge data frames (EDFs). These specialized tables
       can be used to create graphs.
     contents:
       - create_node_df
@@ -102,7 +107,6 @@ reference:
       - mutate_node_attrs_ws
       - colorize_node_attrs
       - recode_node_attrs
-      - set_df_as_node_attr
       - set_node_position
       - layout_nodes_w_string
       - nudge_node_positions_ws
@@ -118,7 +122,6 @@ reference:
       - mutate_edge_attrs_ws
       - colorize_edge_attrs
       - recode_edge_attrs
-      - set_df_as_edge_attr
       - node_data
       - node_aes
       - edge_data
@@ -173,7 +176,6 @@ reference:
       - get_paths
       - do_dfs
       - do_bfs
-      - get_attr_dfs
       - count_nodes
       - count_edges
       - count_loop_edges
@@ -298,6 +300,10 @@ reference:
       - get_graph_time
       - get_graph_log
   - title: Graph Actions
+    desc: >
+      Take action! Think of graph actions as little
+      subroutines that execute at every meaningful
+      change of the graph.
     contents:
       - add_graph_action
       - delete_graph_actions
@@ -305,9 +311,26 @@ reference:
       - reorder_graph_actions
       - trigger_graph_actions
   - title: Graphviz
+    desc: >
+      Graphviz is a cornerstone technology for
+      rendering graphs in DiagrammeR. These
+      functions generate Graphviz code and
+      render graphs with that code.
     contents:
-      - grViz
       - generate_dot
+      - grViz
   - title: mermaid
     contents:
       - mermaid
+
+articles:
+  - title: Getting Started
+    contents:
+    - node-edge-data-frames
+    - simple-graphs-ndfs-edfs
+  - title: Graphviz & Mermaid
+    contents:
+    - graphviz-mermaid
+
+development:
+  version_tooltip: "Development version"

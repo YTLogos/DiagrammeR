@@ -7,37 +7,31 @@
 join_node_attrs(graph, df, by_graph = NULL, by_df = NULL)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{df}{the data frame to use for joining.}
+\item{df}{The data frame to use for joining.}
 
-\item{by_graph}{optional specification of the column
-in the graph's internal node data frame for the left
-join. If both \code{by_graph} and \code{by_df} are
-not provided, then a natural join will occur if
-there are columns in the graph's ndf and in
-\code{df} with identical names.}
+\item{by_graph}{Optional specification of the column in the graph's internal
+node data frame for the left join. If both \code{by_graph} and \code{by_df} are not
+provided, then a natural join will occur if there are columns in the
+graph's ndf and in \code{df} with identical names.}
 
-\item{by_df}{optional specification of the column in
-\code{df} for the left join. If both \code{by_graph}
-and \code{by_df} are not provided, then a natural
-join will occur if there are columns in the graph's
-ndf and in \code{df} with identical names.
-\code{dgr_graph} that is created using
-\code{create_graph}.}
+\item{by_df}{Optional specification of the column in \code{df} for the left join.
+If both \code{by_graph} and \code{by_df} are not provided, then a natural join will
+occur if there are columns in the graph's ndf and in \code{df} with identical
+names.}
 }
 \value{
-a graph object of class \code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Join new node attribute values in a
-left join using a data frame. The use of a left join
-in this function allows for no possibility that
-nodes in the graph might be removed after the join.
+Join new node attribute values in a left join using a data frame. The use of
+a left join in this function allows for no possibility that nodes in the
+graph might be removed after the join.
 }
 \examples{
 # Set a seed
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(23)
 
 # Create a simple graph
@@ -65,8 +59,7 @@ graph <-
 
 # Get the graph's internal ndf to show that the
 # join has been made
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Get betweenness values for each node and
 # add them as a node attribute (Note the
@@ -79,6 +72,35 @@ graph <-
 
 # Get the graph's internal ndf to show that
 # this join has been made
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

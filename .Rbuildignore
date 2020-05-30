@@ -3,6 +3,7 @@
 .bowerrc
 .*sublime.*
 ^\.travis\.yml$
+^.github$
 ^cran-comments\.md$
 ^CONDUCT\.md$
 ^revdep$
@@ -11,5 +12,5 @@
 ^README-.*\.png$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
-^/man/figures$
+^man/figures/.*$
 ^README\.md$

@@ -7,25 +7,19 @@
 mutate_node_attrs(graph, ...)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{...}{expressions used for the mutation
-of node attributes. LHS of each expression is
-either an existing or new node attribute name.
-The RHS can consist of any valid R code that
-uses node attributes as variables. Expressions
-are evaluated in the order provided, so, node
-attributes created or modified are ready to
-use in subsequent expressions.}
+\item{...}{Expressions used for the mutation of node attributes. LHS of each
+expression is either an existing or new node attribute name. The RHS can
+consist of any valid R code that uses node attributes as variables.
+Expressions are evaluated in the order provided, so, node attributes
+created or modified are ready to use in subsequent expressions.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Within a graph's internal node
-data frame (ndf), mutate numeric node
+Within a graph's internal node data frame (ndf), mutate numeric node
 attribute values using one or more expressions.
 }
 \examples{
@@ -40,8 +34,7 @@ graph <-
 # Get the graph's internal ndf
 # to show which node attributes
 # are available
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Mutate the `width` node
 # attribute, dividing each
@@ -55,8 +48,7 @@ graph <-
 # ndf to show that the node
 # attribute `width` had its
 # values changed
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Create a new node attribute,
 # called `length`, that is the
@@ -72,8 +64,7 @@ graph <-
 # Get the graph's internal ndf
 # to show that the node attribute
 # values had been mutated
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Create a new node attribute
 # called `area`, which is the
@@ -88,6 +79,36 @@ graph <-
 # to show that the node attribute
 # values had been multiplied
 # together (with new attr `area`)
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
+
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

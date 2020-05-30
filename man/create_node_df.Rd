@@ -7,36 +7,33 @@
 create_node_df(n, type = NULL, label = NULL, ...)
 }
 \arguments{
-\item{n}{the total number of nodes to include in the
-node data frame.}
+\item{n}{The total number of nodes to include in the node data frame.}
 
-\item{type}{an optional \code{type} for each
-node.}
+\item{type}{An optional \code{type} for each node.}
 
-\item{label}{an optional \code{label} for each node.}
+\item{label}{An optional \code{label} for each node.}
 
-\item{...}{one or more vectors for associated node
-attributes.}
+\item{...}{One or more vectors for associated node attributes.}
 }
 \value{
-a node data frame (ndf).
+A node data frame (ndf).
 }
 \description{
-Combine several vectors for nodes
-and their attributes into a data frame, which can be
-combined with other similarly-generated data frames,
-or, added to a graph object. A node data frame,
-or ndf, has at least the following columns:
+Combine several vectors for nodes and their attributes into a data frame,
+which can be combined with other similarly-generated data frames, or, added
+to a graph object. A node data frame, or ndf, has at least the following
+columns:
+}
+\details{
+\itemize{
+\item \code{id} (of type \code{integer})
+\item \code{type} (of type \code{character})
+\item \code{label} (of type \code{character})
+}
 
-- \code{id} (of type \code{integer})
-
-- \code{type} (of type \code{character})
-
-- \code{label} (of type \code{character})
-
-An arbitrary number of additional columns containing
-aesthetic or data attributes can be part of the ndf,
-so long as they follow the aforementioned columns.
+An arbitrary number of additional columns containing aesthetic or data
+attributes can be part of the ndf, so long as they follow the aforementioned
+columns.
 }
 \examples{
 # Create a node data frame (ndf) where the labels
@@ -70,3 +67,33 @@ node_df <-
 # Display the node data frame
 node_df
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

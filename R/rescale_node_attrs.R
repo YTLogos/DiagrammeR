@@ -1,31 +1,26 @@
 #' Rescale numeric node attribute values
-#' @description From a graph object of class
-#' \code{dgr_graph}, take a set of numeric values for a
-#' node attribute, rescale to a new numeric or color
-#' range, then write to the same node attribute or to
-#' a new node attribute column.
-#' @param graph a graph object of class
-#' \code{dgr_graph}.
-#' @param node_attr_from the node attribute containing
-#' numeric data that is to be rescaled to new numeric
-#' or color values.
-#' @param to_lower_bound the lower bound value for the
-#' set of rescaled values. This can be a numeric value
-#' or an X11 color name.
-#' @param to_upper_bound the upper bound value for the
-#' set of rescaled values. This can be a numeric value
-#' or an X11 color name.
-#' @param node_attr_to an optional name of a new node
-#' attribute to which the recoded values will be
-#' applied. This will retain the original node
-#' attribute and its values.
-#' @param from_lower_bound an optional, manually set
-#' lower bound value for the rescaled values. If not
-#' set, the minimum value from the set will be used.
-#' @param from_upper_bound an optional, manually set
-#' upper bound value for the rescaled values. If not
-#' set, the minimum value from the set will be used.
-#' @return a graph object of class \code{dgr_graph}.
+#'
+#' From a graph object of class `dgr_graph`, take a set of numeric values for a
+#' node attribute, rescale to a new numeric or color range, then write to the
+#' same node attribute or to a new node attribute column.
+#'
+#' @inheritParams render_graph
+#' @param node_attr_from The node attribute containing numeric data that is to
+#'   be rescaled to new numeric or color values.
+#' @param to_lower_bound The lower bound value for the set of rescaled values.
+#'   This can be a numeric value or an X11 color name.
+#' @param to_upper_bound The upper bound value for the set of rescaled values.
+#'   This can be a numeric value or an X11 color name.
+#' @param node_attr_to An optional name of a new node attribute to which the
+#'   recoded values will be applied. This will retain the original node
+#'   attribute and its values.
+#' @param from_lower_bound An optional, manually set lower bound value for the
+#'   rescaled values. If not set, the minimum value from the set will be used.
+#' @param from_upper_bound An optional, manually set upper bound value for the
+#'   rescaled values. If not set, the minimum value from the set will be used.
+#'
+#' @return A graph object of class `dgr_graph`.
+#'
 #' @examples
 #' # Create a random graph using the
 #' # `add_gnm_graph()` function
@@ -45,8 +40,7 @@
 #' # Get the graph's internal ndf
 #' # to show which node attributes
 #' # are available
-#' graph %>%
-#'   get_node_df()
+#' graph %>% get_node_df()
 #'
 #' # Rescale the `value` node
 #' # attribute, so that its values
@@ -61,8 +55,7 @@
 #' # Get the graph's internal ndf
 #' # to show that the node attribute
 #' # values had been rescaled
-#' graph %>%
-#'   get_node_df()
+#' graph %>% get_node_df()
 #'
 #' # Scale the values in the `value`
 #' # node attribute to different
@@ -86,13 +79,11 @@
 #' # grayscale colors are now available
 #' # in the `fillcolor` and `fontcolor`
 #' # node attributes
-#' graph %>%
-#'   get_node_df()
-#' @importFrom scales rescale cscale seq_gradient_pal
-#' @importFrom grDevices colors
-#' @importFrom rlang enquo UQ get_expr
-#' @export rescale_node_attrs
-
+#' graph %>% get_node_df()
+#'
+#' @import rlang
+#' @family Node creation and removal
+#' @export
 rescale_node_attrs <- function(graph,
                                node_attr_from,
                                to_lower_bound = 0,
@@ -150,12 +141,11 @@ rescale_node_attrs <- function(graph,
       reasons = "The node attribute to rescale is not in the ndf")
   }
 
-  # Get the column number for the node attr to rescale
-  col_num_rescale <-
-    which(colnames(nodes) %in% node_attr_from)
-
   # Extract the vector to rescale from the `nodes` df
-  vector_to_rescale <- as.numeric(nodes[, col_num_rescale])
+  vector_to_rescale <-
+    nodes %>%
+    dplyr::mutate_at(.vars = node_attr_from, .funs = ~as.numeric(.)) %>%
+    dplyr::pull(var = !!node_attr_from)
 
   if ((!is.null(from_lower_bound) &
        is.null(from_upper_bound)) |
@@ -164,11 +154,7 @@ rescale_node_attrs <- function(graph,
       (is.null(from_lower_bound) &
        is.null(from_upper_bound))) {
 
-    from <-
-      range(
-        vector_to_rescale,
-        na.rm = TRUE,
-        finite = TRUE)
+    from <- range(vector_to_rescale, na.rm = TRUE, finite = TRUE)
 
   } else {
     from <- c(from_lower_bound, from_upper_bound)
@@ -215,8 +201,9 @@ rescale_node_attrs <- function(graph,
   graph <-
     set_node_attrs(
       graph = graph,
-      node_attr = rlang::UQ(node_attr_to_2),
-      values = nodes_attr_vector_rescaled)
+      node_attr = !!node_attr_to_2,
+      values = nodes_attr_vector_rescaled
+    )
 
   # Remove last action from the `graph_log`
   graph$graph_log <- graph$graph_log[1:(nrow(graph$graph_log) - 1), ]

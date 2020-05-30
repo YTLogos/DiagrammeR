@@ -4,39 +4,37 @@
 \alias{recode_edge_attrs}
 \title{Recode a set of edge attribute values}
 \usage{
-recode_edge_attrs(graph, edge_attr_from, ..., otherwise = NULL,
-  edge_attr_to = NULL)
+recode_edge_attrs(
+  graph,
+  edge_attr_from,
+  ...,
+  otherwise = NULL,
+  edge_attr_to = NULL
+)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{edge_attr_from}{the name of the edge attribute
-column from which values will be recoded.}
+\item{edge_attr_from}{The name of the edge attribute column from which values
+will be recoded.}
 
-\item{...}{single-length character vectors with
-the recoding instructions. The first component should
-have the value to replace and the second should have
-the replacement value (in the form
-\code{"[to_replace] -> [replacement]", ...}).}
+\item{...}{Single-length character vectors with the recoding instructions.
+The first component should have the value to replace and the second should
+have the replacement value (in the form \verb{"[to_replace] -> [replacement]", ...}).}
 
-\item{otherwise}{an optional single value for
-recoding any unmatched values.}
+\item{otherwise}{An optional single value for recoding any unmatched values.}
 
-\item{edge_attr_to}{an optional name of a new edge
-attribute to which the recoded values will be
-applied. This will retain the original edge
+\item{edge_attr_to}{An optional name of a new edge attribute to which the
+recoded values will be applied. This will retain the original edge
 attribute and its values.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Within a graph's internal edge data
-frame (edf), recode character or numeric edge
-attribute values. Optionally, one can specify a
-replacement value for any unmatched mappings.
+Within a graph's internal edge data frame (edf), recode character or numeric
+edge attribute values. Optionally, one can specify a replacement value for
+any unmatched mappings.
 }
 \examples{
 # Create a random graph using the
@@ -55,8 +53,7 @@ graph <-
 # Get the graph's internal edf
 # to show which edge attributes
 # are available
-graph \%>\%
-  get_edge_df()
+graph \%>\% get_edge_df()
 
 # Recode the `rel` node
 # attribute, creating a new edge
@@ -78,6 +75,34 @@ graph <-
 # attribute values had been
 # recoded and copied into a
 # new node attribute
-graph \%>\%
-  get_edge_df()
+graph \%>\% get_edge_df()
+
 }
+\seealso{
+Other Edge creation and removal: 
+\code{\link{add_edge_clone}()},
+\code{\link{add_edge_df}()},
+\code{\link{add_edges_from_table}()},
+\code{\link{add_edges_w_string}()},
+\code{\link{add_edge}()},
+\code{\link{add_forward_edges_ws}()},
+\code{\link{add_reverse_edges_ws}()},
+\code{\link{copy_edge_attrs}()},
+\code{\link{create_edge_df}()},
+\code{\link{delete_edges_ws}()},
+\code{\link{delete_edge}()},
+\code{\link{delete_loop_edges_ws}()},
+\code{\link{drop_edge_attrs}()},
+\code{\link{edge_data}()},
+\code{\link{join_edge_attrs}()},
+\code{\link{mutate_edge_attrs_ws}()},
+\code{\link{mutate_edge_attrs}()},
+\code{\link{rename_edge_attrs}()},
+\code{\link{rescale_edge_attrs}()},
+\code{\link{rev_edge_dir_ws}()},
+\code{\link{rev_edge_dir}()},
+\code{\link{set_edge_attr_to_display}()},
+\code{\link{set_edge_attrs_ws}()},
+\code{\link{set_edge_attrs}()}
+}
+\concept{Edge creation and removal}

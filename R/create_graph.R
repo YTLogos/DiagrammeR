@@ -1,49 +1,33 @@
 #' Create a graph object
-#' @description Generates a graph object
-#' with the option to use node data frames
-#' (ndfs) and/or edge data frames (edfs)
-#' to populate the initial graph.
-#' @param nodes_df an optional data frame
-#' containing, at minimum, a column
-#' (called \code{id}) which contains
-#' node IDs for the graph. Additional
-#' columns (node attributes) can be
-#' included with values for the named
-#' node attribute.
-#' @param edges_df an optional data
-#' frame containing, at minimum, two
-#' columns (called \code{from} and
-#' \code{to}) where node IDs are
-#' provided. Additional columns (edge
-#' attributes) can be included with
-#' values for the named edge attribute.
-#' @param directed with \code{TRUE}
-#' (the default) or \code{FALSE}, either
-#' directed or undirected edge
-#' operations will be generated,
-#' respectively.
-#' @param graph_name an optional
-#' string for labeling the graph object.
-#' @param attr_theme the theme (i.e.,
-#' collection of \code{graph},
-#' \code{node}, and \code{edge} global
-#' graph attributes) to use for this
-#' graph. The default theme is called
-#' \code{default}. If this is set to
-#' \code{NULL} then no global graph
-#' attributes will be applied to the
-#' graph upon creation.
-#' @param write_backups an option to
-#' write incremental backups of changing
-#' graph states to disk. If \code{TRUE},
-#' a subdirectory within the working
-#' directory will be created and used
-#' to store \code{RDS} files. The
-#' default value is \code{FALSE} so
-#' one has to opt in to use this
-#' functionality.
-#' @return a graph object of class
-#' \code{dgr_graph}.
+#'
+#' Generates a graph object with the option to use node data frames (ndfs)
+#' and/or edge data frames (edfs) to populate the initial graph.
+#'
+#' @param nodes_df An optional data frame containing, at minimum, a column
+#'   (called `id`) which contains node IDs for the graph. Additional columns
+#'   (node attributes) can be included with values for the named node attribute.
+#' @param edges_df An optional data frame containing, at minimum, two columns
+#'   (called `from` and `to`) where node IDs are provided. Additional columns
+#'   (edge attributes) can be included with values for the named edge attribute.
+#' @param directed With `TRUE` (the default) or `FALSE`, either directed or
+#'   undirected edge operations will be generated, respectively.
+#' @param graph_name An optional string for labeling the graph object.
+#' @param attr_theme The theme (i.e., collection of `graph`, `node`, and `edge`
+#'   global graph attributes) to use for this graph. The default theme is called
+#'   `default`; there are hierarchical layout themes called `lr`, `tb`, `rl`,
+#'   and `bt` (these operate from left-to-right, top-to-bottom, right-to-left,
+#'   and bottom-to-top); and, for larger graphs, the `fdp` theme provides a
+#'   force directed layout. If this is set to `NULL` then no global graph
+#'   attributes will be applied to the graph upon creation.
+#' @param write_backups An option to write incremental backups of changing graph
+#'   states to disk. If `TRUE`, a subdirectory within the working directory will
+#'   be created and used to store `RDS` files. The default value is `FALSE` so
+#'   one has to opt in to use this functionality.
+#' @param display_msgs An option to display messages primarily concerned with
+#'   changes in graph selections. By default, this is `FALSE`.
+#'
+#' @return A graph object of class `dgr_graph`.
+#'
 #' @examples
 #' # With `create_graph()` we can
 #' # simply create an empty graph (and
@@ -105,9 +89,9 @@
 #'     rel = "leading_to",
 #'     values = c(7.3, 2.6, 8.3))
 #'
-#' # 2. create the graph object with
-#' #    `create_graph()` and pass in
-#' #    the ndf and edf objects
+#' # Create the graph object with
+#' # `create_graph()` and pass in the
+#' # ndf and edf objects
 #' graph <-
 #'   create_graph(
 #'     nodes_df = ndf,
@@ -115,22 +99,20 @@
 #'
 #' # Get information on the graph's
 #' # internal edge data frame (edf)
-#' graph %>%
-#'   get_edge_df()
+#' graph %>% get_edge_df()
 #'
 #' # Get information on the graph's
 #' # internal node data frame (ndf)
-#' graph %>%
-#'   get_node_df()
-#' @importFrom dplyr bind_rows tibble
-#' @export create_graph
-
+#' graph %>% get_node_df()
+#'
+#' @export
 create_graph <- function(nodes_df = NULL,
                          edges_df = NULL,
                          directed = TRUE,
                          graph_name = NULL,
                          attr_theme = "default",
-                         write_backups = FALSE) {
+                         write_backups = FALSE,
+                         display_msgs = FALSE) {
 
   # Get the name of the function
   fcn_name <- get_calling_fcn()
@@ -146,8 +128,7 @@ create_graph <- function(nodes_df = NULL,
   # Generate a random 8-character, alphanumeric
   # string to use as a graph ID
   graph_id <-
-    replicate(
-      8, sample(c(LETTERS, letters, 0:9), 1)) %>%
+    replicate(8, sample(c(LETTERS, letters, 0:9), 1)) %>%
     paste(collapse = "")
 
   # Create the `graph_info` data frame
@@ -157,8 +138,10 @@ create_graph <- function(nodes_df = NULL,
       graph_name = as.character(paste0("graph_", graph_id)),
       graph_time = graph_time,
       graph_tz = graph_tz,
-      write_backups = as.logical(write_backups),
-      stringsAsFactors = FALSE)
+      write_backups = write_backups,
+      display_msgs = display_msgs,
+      stringsAsFactors = FALSE
+    )
 
   # Insert a user-defined `graph_name` if supplied
   if (!is.null(graph_name)) {
@@ -169,84 +152,72 @@ create_graph <- function(nodes_df = NULL,
 
   # Create an empty table for global graph attributes
   global_attrs <-
-    data.frame(
-      attr = as.character(NA),
-      value = as.character(NA),
-      attr_type = as.character(NA),
-      stringsAsFactors = FALSE)[-1, ]
+    dplyr::tibble(
+      attr = character(0),
+      value = character(0),
+      attr_type = character(0)
+    ) %>%
+    as.data.frame(stringsAsFactors = FALSE)
 
   # If `attr_theme` is `default` then populate the
   # `global_attrs` data frame with global graph attrs
   if (inherits(attr_theme, "character")) {
 
-    if (attr_theme == "default") {
-
-      global_attrs <-
-        data.frame(
-          attr = as.character(
-            c("layout", "outputorder", "fontname", "fontsize",
-              "shape", "fixedsize", "width", "style",
-              "fillcolor", "color", "fontcolor",
-              "bgcolor",
-              "fontname", "fontsize", "len", "color", "arrowsize")
-          ),
-          value = as.character(
-            c("neato", "edgesfirst", "Helvetica", "10",
-              "circle", "true", "0.5", "filled",
-              "aliceblue", "gray70", "gray50",
-              "white",
-              "Helvetica", "8", "1.5", "gray80", "0.5")
-          ),
-          attr_type = as.character(
-            c(rep("graph", 2),
-              rep("node", 9),
-              "graph",
-              rep("edge", 5))),
-          stringsAsFactors = FALSE)
-    } else {
-
-      emit_error(
-        fcn_name = fcn_name,
-        reasons = "The value for `attr_theme` doesn't refer to any available theme")
-    }
+    global_attrs <-
+      switch(
+        attr_theme,
+        default = attr_theme_default(),
+        lr = attr_theme_lr(),
+        tb = attr_theme_tb(),
+        rl = attr_theme_rl(),
+        bt = attr_theme_bt(),
+        fdp = attr_theme_fdp(),
+        kk = attr_theme_kk(),
+        emit_error(
+          fcn_name = fcn_name,
+          reasons = "The value for `attr_theme` doesn't refer to any available theme"
+        )
+      )
 
   } else if (is.null(attr_theme)) {
 
     global_attrs <-
-      data.frame(
-        attr = as.character(NA),
-        value = as.character(NA),
-        attr_type = as.character(NA),
-        stringsAsFactors = FALSE)[-1, ]
+      dplyr::tibble(
+        attr = character(0),
+        value = character(0),
+        attr_type = character(0)
+      ) %>%
+      as.data.frame(stringsAsFactors = FALSE)
   }
 
   ## DF: `nodes_df`
 
   # Create an empty node data frame (`ndf`)
   ndf <-
-    data.frame(
-      id = as.integer(NA),
-      type = as.character(NA),
-      label = as.character(NA),
-      stringsAsFactors = FALSE)[-1, ]
+    dplyr::tibble(
+      id = integer(0),
+      type = character(0),
+      label = character(0)
+    ) %>%
+    as.data.frame(stringsAsFactors = FALSE)
 
   ## DF: `edges_df`
 
   # Create an empty edge data frame (`edf`)
   edf <-
-    data.frame(
-      id = as.integer(NA),
-      from = as.integer(NA),
-      to = as.integer(NA),
-      rel = as.character(NA),
-      stringsAsFactors = FALSE)[-1, ]
+    dplyr::tibble(
+      id = integer(0),
+      from = integer(0),
+      to = integer(0),
+      rel = character(0)
+    ) %>%
+    as.data.frame(stringsAsFactors = FALSE)
 
   ## DF: `node_selection`
 
   # Create an empty node selection data frame (`nsdf`)
   nsdf <-
-    dplyr::tibble(
-      node = as.integer(NA))[-1, ] %>%
+    dplyr::tibble(node = integer(0)) %>%
     as.data.frame(stringsAsFactors = FALSE)
 
   ## DF: `edge_selection`
@@ -254,35 +225,38 @@ create_graph <- function(nodes_df = NULL,
   # Create an empty edge selection data frame (`esdf`)
   esdf <-
     dplyr::tibble(
-      edge = as.integer(NA),
-      from = as.integer(NA),
-      to = as.integer(NA))[-1, ] %>%
+      edge = integer(0),
+      from = integer(0),
+      to = integer(0)
+    ) %>%
     as.data.frame(stringsAsFactors = FALSE)
 
   ## DF: `graph_actions`
 
   # Create an empty `graph_actions` data frame
   graph_actions <-
-    data.frame(
-      action_index = as.integer(NA),
-      action_name = as.character(NA),
-      expression = as.character(NA),
-      stringsAsFactors = FALSE)[-1, ]
+    dplyr::tibble(
+      action_index = integer(0),
+      action_name = character(0),
+      expression = character(0)
+    ) %>%
+    as.data.frame(stringsAsFactors = FALSE)
 
   ## DF: `graph_log`
 
   # Create an empty `graph_log` data frame
   graph_log <-
-    data.frame(
-      version_id = as.integer(NA),
-      function_used = as.character(NA),
+    dplyr::tibble(
+      version_id = integer(0),
+      function_used = character(0),
       time_modified = graph_time,
-      duration = as.numeric(NA),
-      nodes = as.integer(NA),
-      edges = as.integer(NA),
-      d_n = as.integer(NA),
-      d_e = as.integer(NA),
-      stringsAsFactors = FALSE)[-1, ]
+      duration = numeric(0),
+      nodes = integer(0),
+      edges = integer(0),
+      d_n = integer(0),
+      d_e = integer(0)
+    ) %>%
+    as.data.frame(stringsAsFactors = FALSE)
 
   ## list: `cache`
 
@@ -305,7 +279,8 @@ create_graph <- function(nodes_df = NULL,
       edge_selection = esdf,
       cache = cache,
       graph_actions = graph_actions,
-      graph_log = graph_log)
+      graph_log = graph_log
+    )
 
   attr(graph, "class") <- "dgr_graph"
 
@@ -324,7 +299,8 @@ create_graph <- function(nodes_df = NULL,
         nodes = nrow(graph$nodes_df),
         edges = nrow(graph$edges_df),
         d_n = nrow(graph$nodes_df),
-        d_e = nrow(graph$edges_df))
+        d_e = nrow(graph$edges_df)
+      )
 
   } else if (!is.null(nodes_df) & is.null(edges_df)) {
 
@@ -343,8 +319,7 @@ create_graph <- function(nodes_df = NULL,
     }
 
     # Bind the nodes to the `nodes_df` df in the graph
-    graph$nodes_df <-
-      dplyr::bind_rows(graph$nodes_df, nodes_df)
+    graph$nodes_df <- dplyr::bind_rows(graph$nodes_df, nodes_df)
 
     # Modify the `last_node` vector
     graph$last_node <- nrow(nodes_df)
@@ -360,7 +335,8 @@ create_graph <- function(nodes_df = NULL,
         nodes = nrow(graph$nodes_df),
         edges = nrow(graph$edges_df),
         d_n = nrow(graph$nodes_df),
-        d_e = nrow(graph$edges_df))
+        d_e = nrow(graph$edges_df)
+      )
 
   } else if (!is.null(nodes_df) & !is.null(edges_df)) {
 

@@ -7,36 +7,31 @@
 join_edge_attrs(graph, df, by_graph = NULL, by_df = NULL)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{df}{the data frame to use for joining.}
+\item{df}{The data frame to use for joining.}
 
-\item{by_graph}{optional specification of the column
-in the graph's internal edge data frame for the left
-join. If both \code{by_graph} and \code{by_df} are
-not provided, then a natural join will occur if
-there are columns in the graph's edf and in
-\code{df} with identical names.}
+\item{by_graph}{Optional specification of the column in the graph's internal
+edge data frame for the left join. If both \code{by_graph} and \code{by_df} are not
+provided, then a natural join will occur if there are columns in the
+graph's edf and in \code{df} with identical names.}
 
-\item{by_df}{optional specification of the column in
-\code{df} for the left join. If both \code{by_graph}
-and \code{by_df} are not provided, then a natural
-join will occur if there are columns in the graph's
-edf and in \code{df} with identical names.}
+\item{by_df}{Optional specification of the column in \code{df} for the left join.
+If both \code{by_graph} and \code{by_df} are not provided, then a natural join will
+occur if there are columns in the graph's edf and in \code{df} with identical
+names.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Join new edge attribute values in a
-left join using a data frame. The use of a left join
-in this function allows for no possibility that
-edges in the graph might be removed after the join.
+Join new edge attribute values in a left join using a data frame. The use of
+a left join in this function allows for no possibility that edges in the
+graph might be removed after the join.
 }
 \examples{
 # Set a seed
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(23)
 
 # Create a simple graph
@@ -66,6 +61,33 @@ graph <-
 
 # Get the graph's internal edf to show that the
 # join has been made
-graph \%>\%
-  get_edge_df()
+graph \%>\% get_edge_df()
 }
+\seealso{
+Other Edge creation and removal: 
+\code{\link{add_edge_clone}()},
+\code{\link{add_edge_df}()},
+\code{\link{add_edges_from_table}()},
+\code{\link{add_edges_w_string}()},
+\code{\link{add_edge}()},
+\code{\link{add_forward_edges_ws}()},
+\code{\link{add_reverse_edges_ws}()},
+\code{\link{copy_edge_attrs}()},
+\code{\link{create_edge_df}()},
+\code{\link{delete_edges_ws}()},
+\code{\link{delete_edge}()},
+\code{\link{delete_loop_edges_ws}()},
+\code{\link{drop_edge_attrs}()},
+\code{\link{edge_data}()},
+\code{\link{mutate_edge_attrs_ws}()},
+\code{\link{mutate_edge_attrs}()},
+\code{\link{recode_edge_attrs}()},
+\code{\link{rename_edge_attrs}()},
+\code{\link{rescale_edge_attrs}()},
+\code{\link{rev_edge_dir_ws}()},
+\code{\link{rev_edge_dir}()},
+\code{\link{set_edge_attr_to_display}()},
+\code{\link{set_edge_attrs_ws}()},
+\code{\link{set_edge_attrs}()}
+}
+\concept{Edge creation and removal}

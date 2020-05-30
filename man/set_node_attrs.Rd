@@ -7,29 +7,22 @@
 set_node_attrs(graph, node_attr, values, nodes = NULL)
 }
 \arguments{
-\item{graph}{a graph object of
-class \code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{node_attr}{the name of the
-attribute to set.}
+\item{node_attr}{The name of the attribute to set.}
 
-\item{values}{the values to be
-set for the chosen attribute for
-the chosen nodes.}
+\item{values}{The values to be set for the chosen attribute for the chosen
+nodes.}
 
-\item{nodes}{an optional vector
-of node IDs for filtering the list
-of nodes present in the graph.}
+\item{nodes}{An optional vector of node IDs for filtering the list of nodes
+present in the graph.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-From a graph object of
-class \code{dgr_graph}, set node
-attribute values for one or more
-nodes.
+From a graph object of class \code{dgr_graph}, set node attribute values for one
+or more nodes.
 }
 \examples{
 # Create a node data frame (ndf)
@@ -63,8 +56,7 @@ graph <-
     nodes = c(1, 3))
 
 # View the graph's node data frame
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Set attribute `color = "blue"` for
 # all nodes in the graph
@@ -75,6 +67,36 @@ graph <-
     values = "blue")
 
 # Display the graph's ndf
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
+
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

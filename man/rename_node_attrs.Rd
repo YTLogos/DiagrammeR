@@ -7,21 +7,19 @@
 rename_node_attrs(graph, node_attr_from, node_attr_to)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{node_attr_from}{the name of the node attribute
-that will be renamed.}
+\item{node_attr_from}{The name of the node attribute that will be renamed.}
 
-\item{node_attr_to}{the new name of the node
-attribute column identified in \code{node_attr_from}.}
+\item{node_attr_to}{The new name of the node attribute column identified in
+\code{node_attr_from}.}
 }
 \value{
-a graph object of class \code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Within a graph's internal node data
-frame (ndf), rename an existing node attribute.
+Within a graph's internal node data frame (ndf), rename an existing node
+attribute.
 }
 \examples{
 # Create a random graph using the
@@ -45,8 +43,7 @@ graph <-
 # Get the graph's internal ndf
 # to show which node attributes
 # are available
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Rename the `value` node
 # attribute as `weight`
@@ -59,6 +56,36 @@ graph <-
 # Get the graph's internal
 # ndf to show that the node
 # attribute had been renamed
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
+
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

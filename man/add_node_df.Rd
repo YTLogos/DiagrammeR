@@ -2,24 +2,20 @@
 % Please edit documentation in R/add_node_df.R
 \name{add_node_df}
 \alias{add_node_df}
-\title{Add nodes from a node data frame to an existing
-graph object}
+\title{Add nodes from a node data frame to an existing graph object}
 \usage{
 add_node_df(graph, node_df)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{node_df}{a node data frame that is created
-using \code{create_node_df}.}
+\item{node_df}{A node data frame that is created using \code{\link[=create_node_df]{create_node_df()}}.}
 }
 \value{
-a graph object of class \code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-With a graph object of class
-\code{dgr_graph} add nodes from a node data frame to
+With a graph object of class \code{dgr_graph} add nodes from a node data frame to
 that graph.
 }
 \examples{
@@ -39,8 +35,7 @@ graph <-
     node_df = ndf)
 
 # Inspect the graph's ndf
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Create another ndf
 ndf_2 <-
@@ -58,6 +53,35 @@ graph <-
 # View the graph's internal
 # node data frame using the
 # `get_node_df()` function
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{colorize_node_attrs}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

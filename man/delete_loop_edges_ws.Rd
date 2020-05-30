@@ -7,16 +7,27 @@
 delete_loop_edges_ws(graph)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-With a selection of nodes in a
-graph, remove any associated loop edges.
+With a selection of nodes in a graph, remove any associated loop edges.
+}
+\details{
+This function makes use of an active selection of nodes (and the function
+ending with \verb{_ws} hints at this).
+
+Selections of nodes can be performed using the following node selection
+(\verb{select_*()}) functions: \code{\link[=select_nodes]{select_nodes()}}, \code{\link[=select_last_nodes_created]{select_last_nodes_created()}},
+\code{\link[=select_nodes_by_degree]{select_nodes_by_degree()}}, \code{\link[=select_nodes_by_id]{select_nodes_by_id()}}, or
+\code{\link[=select_nodes_in_neighborhood]{select_nodes_in_neighborhood()}}.
+
+Selections of nodes can also be performed using the following traversal
+(\verb{trav_*()}) functions: \code{\link[=trav_out]{trav_out()}}, \code{\link[=trav_in]{trav_in()}}, \code{\link[=trav_both]{trav_both()}},
+\code{\link[=trav_out_node]{trav_out_node()}}, \code{\link[=trav_in_node]{trav_in_node()}}, \code{\link[=trav_out_until]{trav_out_until()}}, or
+\code{\link[=trav_in_until]{trav_in_until()}}.
 }
 \examples{
 # Create an undirected, full graph
@@ -39,6 +50,33 @@ graph <-
 
 # Count the number of loop
 # edges remaining in the graph
-graph \%>\%
-  count_loop_edges()
+graph \%>\% count_loop_edges()
 }
+\seealso{
+Other Edge creation and removal: 
+\code{\link{add_edge_clone}()},
+\code{\link{add_edge_df}()},
+\code{\link{add_edges_from_table}()},
+\code{\link{add_edges_w_string}()},
+\code{\link{add_edge}()},
+\code{\link{add_forward_edges_ws}()},
+\code{\link{add_reverse_edges_ws}()},
+\code{\link{copy_edge_attrs}()},
+\code{\link{create_edge_df}()},
+\code{\link{delete_edges_ws}()},
+\code{\link{delete_edge}()},
+\code{\link{drop_edge_attrs}()},
+\code{\link{edge_data}()},
+\code{\link{join_edge_attrs}()},
+\code{\link{mutate_edge_attrs_ws}()},
+\code{\link{mutate_edge_attrs}()},
+\code{\link{recode_edge_attrs}()},
+\code{\link{rename_edge_attrs}()},
+\code{\link{rescale_edge_attrs}()},
+\code{\link{rev_edge_dir_ws}()},
+\code{\link{rev_edge_dir}()},
+\code{\link{set_edge_attr_to_display}()},
+\code{\link{set_edge_attrs_ws}()},
+\code{\link{set_edge_attrs}()}
+}
+\concept{Edge creation and removal}

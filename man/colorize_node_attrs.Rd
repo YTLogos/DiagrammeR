@@ -4,53 +4,51 @@
 \alias{colorize_node_attrs}
 \title{Apply colors based on node attribute values}
 \usage{
-colorize_node_attrs(graph, node_attr_from, node_attr_to, cut_points = NULL,
-  palette = "Spectral", alpha = NULL, reverse_palette = FALSE,
-  default_color = "#D9D9D9")
+colorize_node_attrs(
+  graph,
+  node_attr_from,
+  node_attr_to,
+  cut_points = NULL,
+  palette = "Spectral",
+  alpha = NULL,
+  reverse_palette = FALSE,
+  default_color = "#D9D9D9"
+)
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{node_attr_from}{the name of the node attribute
-column from which color values will be based.}
+\item{node_attr_from}{The name of the node attribute column from which color
+values will be based.}
 
-\item{node_attr_to}{the name of the new node
-attribute to which the color values will be applied.}
+\item{node_attr_to}{The name of the new node attribute to which the color
+values will be applied.}
 
-\item{cut_points}{an optional vector of numerical
-breaks for bucketizing continuous numerical values
-available in a node attribute column.}
+\item{cut_points}{An optional vector of numerical breaks for bucketizing
+continuous numerical values available in a edge attribute column.}
 
-\item{palette}{can either be: (1) a palette name from
-the RColorBrewer package (e.g., \code{Greens},
-\code{OrRd}, \code{RdYlGn}), (2) \code{viridis}, which
-indicates use of the \code{viridis} color scale from
-the package of the same name, or (3) a vector of
-hexadecimal color names.}
+\item{palette}{Can either be: (1) a palette name from the RColorBrewer
+package (e.g., \code{Greens}, \code{OrRd}, \code{RdYlGn}), (2) \code{viridis}, which indicates
+use of the \code{viridis} color scale from the package of the same name, or (3)
+a vector of hexadecimal color names.}
 
-\item{alpha}{an optional alpha transparency value to
-apply to the generated colors. Should be in
-the range of \code{0} (completely transparent) to
-\code{100} (completely opaque).}
+\item{alpha}{An optional alpha transparency value to apply to the generated
+colors. Should be in the range of \code{0} (completely transparent) to \code{100}
+(completely opaque).}
 
-\item{reverse_palette}{an option to reverse the order
-of colors in the chosen palette. The default is
-\code{FALSE}.}
+\item{reverse_palette}{An option to reverse the order of colors in the chosen
+palette. The default is \code{FALSE}.}
 
-\item{default_color}{a hexadecimal color value to
-use for instances when the values do not fall into
-the bucket ranges specified in the \code{cut_points}
+\item{default_color}{A hexadecimal color value to use for instances when the
+values do not fall into the bucket ranges specified in the \code{cut_points}
 vector.}
 }
 \value{
-a graph object of class
-\code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Within a graph's internal node data
-frame (ndf), use a categorical node attribute to
-generate a new node attribute with color values.
+Within a graph's internal node data frame (ndf), use a categorical node
+attribute to generate a new node attribute with color values.
 }
 \examples{
 # Create a graph with 8
@@ -101,8 +99,7 @@ graph <-
     alpha = 80)
 
 # Show the graph's internal node data frame
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
 
 # Create a graph with 8 nodes and 7 edges
 graph <-
@@ -128,6 +125,36 @@ graph <-
 # Now there will be a `fillcolor` node attribute
 # with distinct colors (the `#D9D9D9` color is
 # the default `gray85` color)
-graph \%>\%
-  get_node_df()
+graph \%>\% get_node_df()
+
 }
+\seealso{
+Other Node creation and removal: 
+\code{\link{add_n_node_clones}()},
+\code{\link{add_n_nodes_ws}()},
+\code{\link{add_n_nodes}()},
+\code{\link{add_node_clones_ws}()},
+\code{\link{add_node_df}()},
+\code{\link{add_nodes_from_df_cols}()},
+\code{\link{add_nodes_from_table}()},
+\code{\link{add_node}()},
+\code{\link{copy_node_attrs}()},
+\code{\link{create_node_df}()},
+\code{\link{delete_nodes_ws}()},
+\code{\link{delete_node}()},
+\code{\link{drop_node_attrs}()},
+\code{\link{join_node_attrs}()},
+\code{\link{layout_nodes_w_string}()},
+\code{\link{mutate_node_attrs_ws}()},
+\code{\link{mutate_node_attrs}()},
+\code{\link{node_data}()},
+\code{\link{recode_node_attrs}()},
+\code{\link{rename_node_attrs}()},
+\code{\link{rescale_node_attrs}()},
+\code{\link{set_node_attr_to_display}()},
+\code{\link{set_node_attr_w_fcn}()},
+\code{\link{set_node_attrs_ws}()},
+\code{\link{set_node_attrs}()},
+\code{\link{set_node_position}()}
+}
+\concept{Node creation and removal}

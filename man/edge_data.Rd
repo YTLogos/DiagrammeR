@@ -7,14 +7,12 @@
 edge_data(...)
 }
 \arguments{
-\item{...}{edge data attributes provided
-as one or more named vectors.}
+\item{...}{Edge data attributes provided as one or more named vectors.}
 }
 \description{
-This helper function should be
-invoked to provide values for the namesake
-\code{edge_data} argument, which is present
-in any function where edges are created.
+This helper function should be invoked to provide values for the namesake
+\code{edge_data} argument, which is present in any function where edges are
+created.
 }
 \examples{
 \dontrun{
@@ -34,7 +32,34 @@ graph <-
 # edge data frame; the edge
 # data attributes have
 # been inserted
-graph \%>\%
-  get_edge_df()
+graph \%>\% get_edge_df()
 }
 }
+\seealso{
+Other Edge creation and removal: 
+\code{\link{add_edge_clone}()},
+\code{\link{add_edge_df}()},
+\code{\link{add_edges_from_table}()},
+\code{\link{add_edges_w_string}()},
+\code{\link{add_edge}()},
+\code{\link{add_forward_edges_ws}()},
+\code{\link{add_reverse_edges_ws}()},
+\code{\link{copy_edge_attrs}()},
+\code{\link{create_edge_df}()},
+\code{\link{delete_edges_ws}()},
+\code{\link{delete_edge}()},
+\code{\link{delete_loop_edges_ws}()},
+\code{\link{drop_edge_attrs}()},
+\code{\link{join_edge_attrs}()},
+\code{\link{mutate_edge_attrs_ws}()},
+\code{\link{mutate_edge_attrs}()},
+\code{\link{recode_edge_attrs}()},
+\code{\link{rename_edge_attrs}()},
+\code{\link{rescale_edge_attrs}()},
+\code{\link{rev_edge_dir_ws}()},
+\code{\link{rev_edge_dir}()},
+\code{\link{set_edge_attr_to_display}()},
+\code{\link{set_edge_attrs_ws}()},
+\code{\link{set_edge_attrs}()}
+}
+\concept{Edge creation and removal}

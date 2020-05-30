@@ -4,49 +4,36 @@
 \alias{set_edge_attr_to_display}
 \title{Set the edge attribute values to be rendered}
 \usage{
-set_edge_attr_to_display(graph, attr = NULL, edges = NULL,
-  default = "label")
+set_edge_attr_to_display(graph, attr = NULL, edges = NULL, default = "label")
 }
 \arguments{
-\item{graph}{a graph object of class
-\code{dgr_graph}.}
+\item{graph}{A graph object of class \code{dgr_graph}.}
 
-\item{attr}{the name of the attribute from
-which label text for the edge will be obtained.
-If set to \code{NULL}, then \code{NA} values
-will be assigned to the \code{display} column
-for the chosen edges.}
+\item{attr}{The name of the attribute from which label text for the edge will
+be obtained. If set to \code{NULL}, then \code{NA} values will be assigned to the
+\code{display} column for the chosen edges.}
 
-\item{edges}{a length vector containing one or
-several edge ID values (as integers) for which
-edge attributes are set for display in the
-rendered graph. If \code{NULL}, all edges from
-the graph are assigned the \code{display} value
+\item{edges}{A length vector containing one or several edge ID values (as
+integers) for which edge attributes are set for display in the rendered
+graph. If \code{NULL}, all edges from the graph are assigned the \code{display} value
 given as \code{attr}.}
 
-\item{default}{the name of an attribute to
-set for all other graph edges not included
-in \code{edges}. This value only gets used if
-the \code{display} edge attribute is not in
-the graph's internal edge data frame.}
+\item{default}{The name of an attribute to set for all other graph edges not
+included in \code{edges}. This value only gets used if the \code{display} edge
+attribute is not in the graph's internal edge data frame.}
 }
 \value{
-a graph object of class \code{dgr_graph}.
+A graph object of class \code{dgr_graph}.
 }
 \description{
-Set a edge attribute type to display
-as edge text when calling the \code{render_graph()}
-function. This allows for display of different types
-of edge attribute values on a per-edge basis.
-Without setting the \code{display} attribute,
-rendering a graph will default to not printing any
-text on edges. Setting the \code{display} edge
-attribute with this function for the first time
-(i.e., the \code{display} column doesn't exist in
-the graph's internal edge data frame) will insert
-the \code{attr} value for all edges specified in
-\code{edges} and a default value (\code{default})
-for all remaining edges.
+Set a edge attribute type to display as edge text when calling the
+\code{\link[=render_graph]{render_graph()}} function. This allows for display of different types of edge
+attribute values on a per-edge basis. Without setting the \code{display}
+attribute, rendering a graph will default to not printing any text on edges.
+Setting the \code{display} edge attribute with this function for the first time
+(i.e., the \code{display} column doesn't exist in the graph's internal edge data
+frame) will insert the \code{attr} value for all edges specified in \code{edges} and a
+default value (\code{default}) for all remaining edges.
 }
 \examples{
 # Create a random graph using the
@@ -76,8 +63,7 @@ graph <-
 # `display` edge attribute will show, for
 # each row, which edge attribute value to
 # display when the graph is rendered
-graph \%>\%
-  get_edge_df()
+graph \%>\% get_edge_df()
 
 # This function can be called multiple
 # times on a graph; after the first time
@@ -92,4 +78,33 @@ graph \%>\%
     edges = c(1, 3),
     attr = id) \%>\%
   get_edge_df()
+
 }
+\seealso{
+Other Edge creation and removal: 
+\code{\link{add_edge_clone}()},
+\code{\link{add_edge_df}()},
+\code{\link{add_edges_from_table}()},
+\code{\link{add_edges_w_string}()},
+\code{\link{add_edge}()},
+\code{\link{add_forward_edges_ws}()},
+\code{\link{add_reverse_edges_ws}()},
+\code{\link{copy_edge_attrs}()},
+\code{\link{create_edge_df}()},
+\code{\link{delete_edges_ws}()},
+\code{\link{delete_edge}()},
+\code{\link{delete_loop_edges_ws}()},
+\code{\link{drop_edge_attrs}()},
+\code{\link{edge_data}()},
+\code{\link{join_edge_attrs}()},
+\code{\link{mutate_edge_attrs_ws}()},
+\code{\link{mutate_edge_attrs}()},
+\code{\link{recode_edge_attrs}()},
+\code{\link{rename_edge_attrs}()},
+\code{\link{rescale_edge_attrs}()},
+\code{\link{rev_edge_dir_ws}()},
+\code{\link{rev_edge_dir}()},
+\code{\link{set_edge_attrs_ws}()},
+\code{\link{set_edge_attrs}()}
+}
+\concept{Edge creation and removal}

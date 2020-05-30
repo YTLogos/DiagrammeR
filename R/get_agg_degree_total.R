@@ -1,21 +1,16 @@
 #' Get an aggregate value from the total degree of nodes
-#' @description Get a single,
-#' aggregate value from the total
-#' degree values for all nodes in a
-#' graph, or, a subset of graph nodes.
-#' @param graph a graph object of class
-#' \code{dgr_graph}.
-#' @param agg the aggregation
-#' function to use for summarizing
-#' total degree values from graph nodes.
-#' The following aggregation functions
-#' can be used: \code{sum}, \code{min},
-#' \code{max}, \code{mean}, or \code{median}.
-#' @param conditions an option to
-#' use filtering conditions for
-#' the nodes to consider.
-#' @return a vector with an
-#' aggregate total degree value.
+#'
+#' Get a single, aggregate value from the total degree values for all nodes in a
+#'   graph, or, a subset of graph nodes.
+#' @inheritParams render_graph
+#' @param agg the aggregation function to use for summarizing total degree
+#'   values from graph nodes. The following aggregation functions can be used:
+#'   `sum`, `min`, `max`, `mean`, or `median`.
+#' @param conditions an option to use filtering conditions for the nodes to
+#'   consider.
+#'
+#' @return A vector with an aggregate total degree value.
+#'
 #' @examples
 #' # Create a random graph using the
 #' # `add_gnm_graph()` function
@@ -57,12 +52,9 @@
 #'   get_agg_degree_total(
 #'     agg = "mean",
 #'     conditions = value < 5.0)
-#' @importFrom dplyr group_by summarize_ select filter ungroup pull
-#' @importFrom stats as.formula
-#' @importFrom purrr flatten_dbl
-#' @importFrom rlang enquo UQ get_expr
-#' @export get_agg_degree_total
-
+#'
+#' @import rlang
+#' @export
 get_agg_degree_total <- function(graph,
                                  agg,
                                  conditions = NULL) {
@@ -81,9 +73,6 @@ get_agg_degree_total <- function(graph,
   # Capture provided conditions
   conditions <- rlang::enquo(conditions)
 
-  # Create binding for variable
-  id <- NULL
-
   # If filtering conditions are provided then
   # pass in those conditions and filter the ndf
   if (!is.null(
@@ -94,10 +83,7 @@ get_agg_degree_total <- function(graph,
     ndf <- get_node_df(graph)
 
     # Apply filtering conditions to the ndf
-    ndf <-
-      dplyr::filter(
-        .data = ndf,
-        rlang::UQ(conditions))
+    ndf <- dplyr::filter(.data = ndf, !!conditions)
 
     # Get a vector of node ID values
     node_ids <-
@@ -128,11 +114,12 @@ get_agg_degree_total <- function(graph,
 
   # Get the aggregate value of total degree based
   # on the aggregate function provided
+  fun <- match.fun(agg)
+
   total_degree_agg <-
     total_degree_df %>%
     dplyr::group_by() %>%
-    dplyr::summarize_(stats::as.formula(
-      paste0("~", agg, "(total_degree, na.rm = TRUE)"))) %>%
+    dplyr::summarize(fun(total_degree, na.rm = TRUE)) %>%
     dplyr::ungroup() %>%
     purrr::flatten_dbl()
 
